@@ -28,159 +28,257 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SetBD = new System.Windows.Forms.Button();
-            this.PortNum = new System.Windows.Forms.TextBox();
-            this.HIDText = new System.Windows.Forms.TextBox();
-            this.HIDLabel = new System.Windows.Forms.Label();
-            this.leftButton = new System.Windows.Forms.Button();
-            this.RightButton = new System.Windows.Forms.Button();
-            this.BeltSpeed = new System.Windows.Forms.TextBox();
-            this.SetBeltSpeed = new System.Windows.Forms.Button();
-            this.CenterButton = new System.Windows.Forms.Button();
-            this.StopInMiddleFirstButton = new System.Windows.Forms.CheckBox();
-            this.SetTimeToStopButton = new System.Windows.Forms.Button();
-            this.TimeToStop = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            SetBD = new Button();
+            PortNum = new TextBox();
+            HIDText = new TextBox();
+            HIDLabel = new Label();
+            leftButton = new Button();
+            RightButton = new Button();
+            BeltSpeed = new TextBox();
+            SetBeltSpeed = new Button();
+            CenterButton = new Button();
+            StopInMiddleFirstButton = new CheckBox();
+            SetTimeToStopButton = new Button();
+            TimeToStop = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            StopInMiddleFirstForTwoButton = new CheckBox();
+            ThreeQuarterButon = new Button();
+            QuarterButton = new Button();
+            ERRORText = new TextBox();
+            label4 = new Label();
+            SuspendLayout();
             // 
             // SetBD
             // 
-            this.SetBD.Location = new System.Drawing.Point(12, 12);
-            this.SetBD.Name = "SetBD";
-            this.SetBD.Size = new System.Drawing.Size(239, 29);
-            this.SetBD.TabIndex = 0;
-            this.SetBD.Text = "Connect to Belt Drive";
-            this.SetBD.UseVisualStyleBackColor = true;
-            this.SetBD.Click += new System.EventHandler(this.SetBD_Click);
+            SetBD.Location = new Point(11, 12);
+            SetBD.Name = "SetBD";
+            SetBD.Size = new Size(239, 29);
+            SetBD.TabIndex = 0;
+            SetBD.Text = "Connect to Belt Drive";
+            SetBD.UseVisualStyleBackColor = true;
+            SetBD.Click += SetBD_Click;
             // 
             // PortNum
             // 
-            this.PortNum.Location = new System.Drawing.Point(257, 13);
-            this.PortNum.Name = "PortNum";
-            this.PortNum.Size = new System.Drawing.Size(78, 27);
-            this.PortNum.TabIndex = 1;
-            this.PortNum.Text = "COM";
-            this.PortNum.TextChanged += new System.EventHandler(this.PortNum_TextChanged);
+            PortNum.Location = new Point(257, 8);
+            PortNum.Name = "PortNum";
+            PortNum.Size = new Size(78, 27);
+            PortNum.TabIndex = 1;
+            PortNum.Text = "COM";
+            PortNum.TextChanged += PortNum_TextChanged;
             // 
             // HIDText
             // 
-            this.HIDText.Location = new System.Drawing.Point(341, 35);
-            this.HIDText.Multiline = true;
-            this.HIDText.Name = "HIDText";
-            this.HIDText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.HIDText.Size = new System.Drawing.Size(447, 403);
-            this.HIDText.TabIndex = 2;
+            HIDText.Location = new Point(347, 148);
+            HIDText.Multiline = true;
+            HIDText.Name = "HIDText";
+            HIDText.ScrollBars = ScrollBars.Both;
+            HIDText.Size = new Size(349, 561);
+            HIDText.TabIndex = 2;
             // 
             // HIDLabel
             // 
-            this.HIDLabel.AutoSize = true;
-            this.HIDLabel.Location = new System.Drawing.Point(341, 12);
-            this.HIDLabel.Name = "HIDLabel";
-            this.HIDLabel.Size = new System.Drawing.Size(71, 20);
-            this.HIDLabel.TabIndex = 3;
-            this.HIDLabel.Text = "HID Data";
-            this.HIDLabel.Click += new System.EventHandler(this.label1_Click);
+            HIDLabel.AutoSize = true;
+            HIDLabel.Location = new Point(347, 119);
+            HIDLabel.Name = "HIDLabel";
+            HIDLabel.Size = new Size(71, 20);
+            HIDLabel.TabIndex = 3;
+            HIDLabel.Text = "HID Data";
+            HIDLabel.Click += label1_Click;
             // 
             // leftButton
             // 
-            this.leftButton.Location = new System.Drawing.Point(12, 156);
-            this.leftButton.Name = "leftButton";
-            this.leftButton.Size = new System.Drawing.Size(323, 90);
-            this.leftButton.TabIndex = 4;
-            this.leftButton.Text = "Move Left";
-            this.leftButton.UseVisualStyleBackColor = true;
-            this.leftButton.Click += new System.EventHandler(this.leftButton_Click);
+            leftButton.Location = new Point(10, 232);
+            leftButton.Name = "leftButton";
+            leftButton.Size = new Size(323, 91);
+            leftButton.TabIndex = 4;
+            leftButton.Text = "Move To Left End";
+            leftButton.UseVisualStyleBackColor = true;
+            leftButton.Click += leftButton_Click;
             // 
             // RightButton
             // 
-            this.RightButton.Location = new System.Drawing.Point(12, 252);
-            this.RightButton.Name = "RightButton";
-            this.RightButton.Size = new System.Drawing.Size(323, 90);
-            this.RightButton.TabIndex = 5;
-            this.RightButton.Text = "Move Right";
-            this.RightButton.UseVisualStyleBackColor = true;
-            this.RightButton.Click += new System.EventHandler(this.RightButton_Click);
+            RightButton.Location = new Point(10, 328);
+            RightButton.Name = "RightButton";
+            RightButton.Size = new Size(323, 91);
+            RightButton.TabIndex = 5;
+            RightButton.Text = "Move To Right End";
+            RightButton.UseVisualStyleBackColor = true;
+            RightButton.Click += RightButton_Click;
             // 
             // BeltSpeed
             // 
-            this.BeltSpeed.Location = new System.Drawing.Point(257, 45);
-            this.BeltSpeed.Name = "BeltSpeed";
-            this.BeltSpeed.Size = new System.Drawing.Size(78, 27);
-            this.BeltSpeed.TabIndex = 6;
-            this.BeltSpeed.Text = "10";
-            this.BeltSpeed.TextChanged += new System.EventHandler(this.BeltSpeed_TextChanged);
+            BeltSpeed.Location = new Point(257, 45);
+            BeltSpeed.Name = "BeltSpeed";
+            BeltSpeed.Size = new Size(78, 27);
+            BeltSpeed.TabIndex = 6;
+            BeltSpeed.Text = "10";
+            BeltSpeed.TextChanged += BeltSpeed_TextChanged;
             // 
             // SetBeltSpeed
             // 
-            this.SetBeltSpeed.Location = new System.Drawing.Point(12, 44);
-            this.SetBeltSpeed.Name = "SetBeltSpeed";
-            this.SetBeltSpeed.Size = new System.Drawing.Size(239, 29);
-            this.SetBeltSpeed.TabIndex = 7;
-            this.SetBeltSpeed.Text = "Set Belt Drive Speed (ips)";
-            this.SetBeltSpeed.UseVisualStyleBackColor = true;
-            this.SetBeltSpeed.Click += new System.EventHandler(this.SetBeltSpeed_Click);
+            SetBeltSpeed.Location = new Point(11, 47);
+            SetBeltSpeed.Name = "SetBeltSpeed";
+            SetBeltSpeed.Size = new Size(239, 29);
+            SetBeltSpeed.TabIndex = 7;
+            SetBeltSpeed.Text = "Set Belt Drive Speed (ips)";
+            SetBeltSpeed.UseVisualStyleBackColor = true;
+            SetBeltSpeed.Click += SetBeltSpeed_Click;
             // 
             // CenterButton
             // 
-            this.CenterButton.Location = new System.Drawing.Point(12, 348);
-            this.CenterButton.Name = "CenterButton";
-            this.CenterButton.Size = new System.Drawing.Size(323, 90);
-            this.CenterButton.TabIndex = 8;
-            this.CenterButton.Text = "Move Center";
-            this.CenterButton.UseVisualStyleBackColor = true;
-            this.CenterButton.Click += new System.EventHandler(this.CenterButton_Click);
+            CenterButton.Location = new Point(10, 523);
+            CenterButton.Name = "CenterButton";
+            CenterButton.Size = new Size(323, 91);
+            CenterButton.TabIndex = 8;
+            CenterButton.Text = "Move Halfway";
+            CenterButton.UseVisualStyleBackColor = true;
+            CenterButton.Click += CenterButton_Click;
             // 
             // StopInMiddleFirstButton
             // 
-            this.StopInMiddleFirstButton.AutoSize = true;
-            this.StopInMiddleFirstButton.Location = new System.Drawing.Point(12, 79);
-            this.StopInMiddleFirstButton.Name = "StopInMiddleFirstButton";
-            this.StopInMiddleFirstButton.Size = new System.Drawing.Size(156, 24);
-            this.StopInMiddleFirstButton.TabIndex = 9;
-            this.StopInMiddleFirstButton.Text = "Stop In Center First";
-            this.StopInMiddleFirstButton.UseVisualStyleBackColor = true;
-            this.StopInMiddleFirstButton.CheckedChanged += new System.EventHandler(this.StopInMiddleFirstButton_CheckedChanged);
+            StopInMiddleFirstButton.AutoSize = true;
+            StopInMiddleFirstButton.Location = new Point(14, 119);
+            StopInMiddleFirstButton.Name = "StopInMiddleFirstButton";
+            StopInMiddleFirstButton.Size = new Size(261, 24);
+            StopInMiddleFirstButton.TabIndex = 9;
+            StopInMiddleFirstButton.Text = "Stop In Center First For One Device";
+            StopInMiddleFirstButton.UseVisualStyleBackColor = true;
+            StopInMiddleFirstButton.CheckedChanged += StopInMiddleFirstButton_CheckedChanged;
             // 
             // SetTimeToStopButton
             // 
-            this.SetTimeToStopButton.Location = new System.Drawing.Point(12, 109);
-            this.SetTimeToStopButton.Name = "SetTimeToStopButton";
-            this.SetTimeToStopButton.Size = new System.Drawing.Size(239, 29);
-            this.SetTimeToStopButton.TabIndex = 10;
-            this.SetTimeToStopButton.Text = "Set Time To Stop In Center (ms)";
-            this.SetTimeToStopButton.UseVisualStyleBackColor = true;
-            this.SetTimeToStopButton.Click += new System.EventHandler(this.SetTimeToStopButton_Click);
+            SetTimeToStopButton.Location = new Point(11, 183);
+            SetTimeToStopButton.Name = "SetTimeToStopButton";
+            SetTimeToStopButton.Size = new Size(239, 29);
+            SetTimeToStopButton.TabIndex = 10;
+            SetTimeToStopButton.Text = "Set Time To Stop In Center (ms)";
+            SetTimeToStopButton.UseVisualStyleBackColor = true;
+            SetTimeToStopButton.Click += SetTimeToStopButton_Click;
             // 
             // TimeToStop
             // 
-            this.TimeToStop.Location = new System.Drawing.Point(257, 110);
-            this.TimeToStop.Name = "TimeToStop";
-            this.TimeToStop.Size = new System.Drawing.Size(78, 27);
-            this.TimeToStop.TabIndex = 11;
-            this.TimeToStop.Text = "2000";
+            TimeToStop.Location = new Point(253, 181);
+            TimeToStop.Name = "TimeToStop";
+            TimeToStop.Size = new Size(78, 27);
+            TimeToStop.TabIndex = 11;
+            TimeToStop.Text = "2000";
+            // 
+            // label1
+            // 
+            label1.BorderStyle = BorderStyle.Fixed3D;
+            label1.Location = new Point(10, 735);
+            label1.Name = "label1";
+            label1.Size = new Size(687, 3);
+            label1.TabIndex = 12;
+            // 
+            // label2
+            // 
+            label2.BorderStyle = BorderStyle.Fixed3D;
+            label2.Location = new Point(338, 100);
+            label2.Name = "label2";
+            label2.Size = new Size(2, 635);
+            label2.TabIndex = 13;
+            // 
+            // label3
+            // 
+            label3.BorderStyle = BorderStyle.Fixed3D;
+            label3.Location = new Point(14, 99);
+            label3.Name = "label3";
+            label3.Size = new Size(687, 3);
+            label3.TabIndex = 14;
+            // 
+            // StopInMiddleFirstForTwoButton
+            // 
+            StopInMiddleFirstForTwoButton.AutoSize = true;
+            StopInMiddleFirstForTwoButton.Location = new Point(14, 151);
+            StopInMiddleFirstForTwoButton.Margin = new Padding(3, 4, 3, 4);
+            StopInMiddleFirstForTwoButton.Name = "StopInMiddleFirstForTwoButton";
+            StopInMiddleFirstForTwoButton.Size = new Size(267, 24);
+            StopInMiddleFirstForTwoButton.TabIndex = 15;
+            StopInMiddleFirstForTwoButton.Text = "Stop In Center First For Two Devices";
+            StopInMiddleFirstForTwoButton.UseVisualStyleBackColor = true;
+            StopInMiddleFirstForTwoButton.CheckedChanged += StopInMiddleFirstForTwoButton_CheckedChanged;
+            // 
+            // ThreeQuarterButon
+            // 
+            ThreeQuarterButon.Location = new Point(10, 620);
+            ThreeQuarterButon.Margin = new Padding(3, 4, 3, 4);
+            ThreeQuarterButon.Name = "ThreeQuarterButon";
+            ThreeQuarterButon.Size = new Size(323, 91);
+            ThreeQuarterButon.TabIndex = 17;
+            ThreeQuarterButon.Text = "Move Three Quarters Way";
+            ThreeQuarterButon.UseVisualStyleBackColor = true;
+            ThreeQuarterButon.Click += ThreeQuarterButon_Click;
+            // 
+            // QuarterButton
+            // 
+            QuarterButton.Location = new Point(10, 425);
+            QuarterButton.Margin = new Padding(3, 4, 3, 4);
+            QuarterButton.Name = "QuarterButton";
+            QuarterButton.Size = new Size(321, 91);
+            QuarterButton.TabIndex = 18;
+            QuarterButton.Text = "Move Quarter Way";
+            QuarterButton.UseVisualStyleBackColor = true;
+            QuarterButton.Click += QuarterButton_Click;
+            // 
+            // ERRORText
+            // 
+            ERRORText.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ERRORText.ForeColor = Color.Red;
+            ERRORText.Location = new Point(347, 32);
+            ERRORText.Margin = new Padding(3, 4, 3, 4);
+            ERRORText.Multiline = true;
+            ERRORText.Name = "ERRORText";
+            ERRORText.ReadOnly = true;
+            ERRORText.Size = new Size(349, 43);
+            ERRORText.TabIndex = 19;
+            ERRORText.TextChanged += ERRORText_TextChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(347, 8);
+            label4.Name = "label4";
+            label4.Size = new Size(117, 20);
+            label4.TabIndex = 20;
+            label4.Text = "ERROR Message";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.TimeToStop);
-            this.Controls.Add(this.SetTimeToStopButton);
-            this.Controls.Add(this.StopInMiddleFirstButton);
-            this.Controls.Add(this.CenterButton);
-            this.Controls.Add(this.SetBeltSpeed);
-            this.Controls.Add(this.BeltSpeed);
-            this.Controls.Add(this.RightButton);
-            this.Controls.Add(this.leftButton);
-            this.Controls.Add(this.HIDLabel);
-            this.Controls.Add(this.HIDText);
-            this.Controls.Add(this.PortNum);
-            this.Controls.Add(this.SetBD);
-            this.Name = "Form1";
-            this.Text = "Pikachu 1.0";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(711, 753);
+            Controls.Add(label4);
+            Controls.Add(ERRORText);
+            Controls.Add(QuarterButton);
+            Controls.Add(ThreeQuarterButon);
+            Controls.Add(StopInMiddleFirstForTwoButton);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(TimeToStop);
+            Controls.Add(SetTimeToStopButton);
+            Controls.Add(StopInMiddleFirstButton);
+            Controls.Add(CenterButton);
+            Controls.Add(SetBeltSpeed);
+            Controls.Add(BeltSpeed);
+            Controls.Add(RightButton);
+            Controls.Add(leftButton);
+            Controls.Add(HIDLabel);
+            Controls.Add(HIDText);
+            Controls.Add(PortNum);
+            Controls.Add(SetBD);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Form1";
+            Text = "Pikachu 2.0";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -197,5 +295,13 @@
         private CheckBox StopInMiddleFirstButton;
         private Button SetTimeToStopButton;
         private TextBox TimeToStop;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private CheckBox StopInMiddleFirstForTwoButton;
+        private Button ThreeQuarterButon;
+        private Button QuarterButton;
+        private TextBox ERRORText;
+        private Label label4;
     }
 }

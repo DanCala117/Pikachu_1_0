@@ -106,16 +106,15 @@ namespace Pikachu_1_0
                     port.WriteLine("O=0");
 
                     Calibrate();
-                    HIDText.Text = beltLength.ToString();
                 }
                 else
                 {
-                    PortNum.Text = "ERROR";
+                    //throw new Exception();
                 }
             }
-            catch 
+            catch (Exception)
             {
-                PortNum.Text = "ERROR";
+                ERRORText.Text = "ERROR Setting Belt Drive Com Port";
             }
         }
 
@@ -126,29 +125,54 @@ namespace Pikachu_1_0
         /// <param name="e"></param>
         private void SetBeltSpeed_Click(object sender, EventArgs e)
         {
-            if (port.IsOpen)
+            try
             {
-                try
+                if (port.IsOpen)
                 {
                     //conversion from motor steps to ips
                     double x = Convert.ToDouble(BeltSpeed.Text);
-                    double y = x * (96 * 254);
-                    MotorSteps = y.ToString();
+                    double y = 0;
+
+                    //checks if user input is between 1ips and 25ips and sets accordinglly
+                    //anything faster then 25ips casues rattling of the belt drive, so I put a hard cap of 25ips
+                    switch (x)
+                    {
+                        //checks if over 25ips
+                        case double n when n >= 25:
+                            x = 25;
+                            y = x * (96 * 254);
+                            MotorSteps = y.ToString();
+                            BeltSpeed.Text = "25";
+                            break;
+
+                        //checks if under 1ips
+                        case double n when n <= 1:
+                            x = 1;
+                            y = x * (96 * 254);
+                            MotorSteps = y.ToString();
+                            BeltSpeed.Text = "1";
+                            break;
+                        //if user input is between the range
+                        default:
+                            y = x * (96 * 254);
+                            MotorSteps = y.ToString();
+                            break;
+                    }
                 }
-                catch 
+                else
                 {
-                    BeltSpeed.Text = "ERROR";
+                    //throw new Exception();
                 }
             }
-            else
+            catch (Exception)
             {
-                BeltSpeed.Text = "ERROR";
+                ERRORText.Text = "ERROR Setting Belt Drive Speed";
             }
         }
 
         private void BeltSpeed_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -158,34 +182,66 @@ namespace Pikachu_1_0
         /// <param name="e"></param>
         private void leftButton_Click(object sender, EventArgs e)
         {
-            if (StopInMiddleFirstButton.Checked)
-            {
-                port.WriteLine("ZS");
-                port.WriteLine("MP");
-                port.WriteLine("VT=" + MotorSteps);
-                port.WriteLine("PT=" + (beltLength / 2) * 96);
-                DoTrajectory(); //pause
-                Thread.Sleep(UserTime); //pause
-                port.WriteLine("ZS");
-                port.WriteLine("MP");
-                port.WriteLine("VT=" + MotorSteps);
-                port.WriteLine("PT=1000"); //set to 1000 so belt doesnt slam into the ends
-                port.WriteLine("G");
-            }
-            else
+            try
             {
                 if (port.IsOpen)
                 {
-                    port.WriteLine("ZS");
-                    port.WriteLine("MP");
-                    port.WriteLine("VT=" + MotorSteps);
-                    port.WriteLine("PT=1000"); //set to 1000 so belt doesnt slam into the ends
-                    port.WriteLine("G");
+                    //stops in center of belt for one device
+                    if (StopInMiddleFirstButton.Checked)
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength / 2) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        DoTrajectory(); //pause
+                        Thread.Sleep(0); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=1000"); //set to 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
+                    //stops in center for two devices
+                    else if (StopInMiddleFirstForTwoButton.Checked)
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength * .75) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength * .25) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=1000"); //set to 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
+                    //does not stop in center for any devices
+                    else
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=1000"); //set to 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
                 }
                 else
                 {
-                    PortNum.Text = "ERROR";
+                    //throw new Exception();
                 }
+            }
+            catch (Exception)
+            {
+                ERRORText.Text = "ERROR Moving Left";
             }
         }
 
@@ -196,32 +252,65 @@ namespace Pikachu_1_0
         /// <param name="e"></param>
         private void RightButton_Click(object sender, EventArgs e)
         {
-            if (StopInMiddleFirstButton.Checked)
-            {
-                port.WriteLine("ZS");
-                port.WriteLine("MP");
-                port.WriteLine("VT=" + MotorSteps);
-                port.WriteLine("PT=" + (beltLength / 2) * 96);
-                DoTrajectory(); //pause
-                Thread.Sleep(UserTime); //pause
-                port.WriteLine("PT=" + ((beltLength * 96) -1000)); //set to - 1000 so belt doesnt slam into the ends
-                port.WriteLine("G");
-            }
-            else
+            try
             {
                 if (port.IsOpen)
                 {
-                    port.WriteLine("ZS");
-                    port.WriteLine("MP");
-                    port.WriteLine("VT=" + MotorSteps);
-                    port.WriteLine("PT=" + ((beltLength * 96) - 1000));//set to - 1000 so belt doesnt slam into the ends
-                    port.WriteLine("G");
-
+                    //stops in the center for one device
+                    if (StopInMiddleFirstButton.Checked)
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength / 2) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        DoTrajectory(); //pause
+                        Thread.Sleep(0); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("PT=" + ((beltLength * 96) - 1000)); //set to - 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
+                    //stops in the center for two devices
+                    else if (StopInMiddleFirstForTwoButton.Checked)
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength * .25) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + (beltLength * .75) * 96);
+                        DoTrajectory(); //pause
+                        Thread.Sleep(UserTime); //pause
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + ((beltLength * 96) - 1000)); //set to - 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
+                    //does not stop in center for any devices
+                    else
+                    {
+                        port.WriteLine("ZS");
+                        port.WriteLine("MP");
+                        port.WriteLine("VT=" + MotorSteps);
+                        port.WriteLine("PT=" + ((beltLength * 96) - 1000));//set to - 1000 so belt doesnt slam into the ends
+                        port.WriteLine("G");
+                    }
                 }
                 else
                 {
-                    PortNum.Text = "ERROR";
+                    //throw new Exception();
                 }
+            }
+            catch (Exception)
+            {
+                ERRORText.Text = "ERROR Moving Right";
             }
         }
 
@@ -232,32 +321,142 @@ namespace Pikachu_1_0
         /// <param name="e"></param>
         private void CenterButton_Click(object sender, EventArgs e)
         {
-            if (port.IsOpen)
+            try
             {
-                port.WriteLine("ZS");
-                port.WriteLine("MP");
-                port.WriteLine("VT=" + MotorSteps);
-                port.WriteLine("PT=" + (beltLength / 2) * 96);
+                if (port.IsOpen)
+                {
+                    port.WriteLine("ZS");
+                    port.WriteLine("MP");
+                    port.WriteLine("VT=" + MotorSteps);
+                    port.WriteLine("PT=" + (beltLength / 2) * 96);
+                    port.WriteLine("G");
+                }
+                else
+                {
+                    //throw new Exception();
+                }
             }
-            else
+            catch (Exception)
             {
-                PortNum.Text = "ERROR";            
+                ERRORText.Text = "ERROR Moving Halfway";
             }
         }
 
         /// <summary>
-        /// Lets the bet drive stop in the cneter before continuing movement
+        /// Lets the bet drive stop in the center for one device before continuing movement
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StopInMiddleFirstButton_CheckedChanged(object sender, EventArgs e)
         {
-            //todo check button
+            //Checks to make sure both radio buttons are not selected at the same time
+            if (StopInMiddleFirstForTwoButton.Checked)
+            {
+                StopInMiddleFirstButton.Checked = false;
+            }
         }
 
         private void SetTimeToStopButton_Click(object sender, EventArgs e)
         {
             UserTime = Int16.Parse(TimeToStop.Text);
+        }
+
+        /// <summary>
+        /// Lets the bet drive stop in the center for two different devices before continuing movement
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StopInMiddleFirstForTwoButton_CheckedChanged(object sender, EventArgs e)
+        {
+            //Checks to make sure both radio buttons are not selected at the same time
+            if (StopInMiddleFirstButton.Checked)
+            {
+                StopInMiddleFirstForTwoButton.Checked = false;
+            }
+        }
+
+        /// <summary>
+        /// Moves the belt drive one quarter way
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuarterButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (port.IsOpen)
+                {
+                    port.WriteLine("ZS");
+                    port.WriteLine("MP");
+                    port.WriteLine("VT=" + MotorSteps);
+                    port.WriteLine("PT=" + (beltLength * .25) * 96);
+                    port.WriteLine("G");
+                }
+                else
+                {
+                    //throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                ERRORText.Text = "ERROR Moving Quarter Way";
+            }
+        }
+
+        /// <summary>
+        /// Moves the belt drive three quarters way
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThreeQuarterButon_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (port.IsOpen)
+                {
+                    port.WriteLine("ZS");
+                    port.WriteLine("MP");
+                    port.WriteLine("VT=" + MotorSteps);
+                    port.WriteLine("PT=" + (beltLength * .75) * 96);
+                    port.WriteLine("G");
+                }
+                else
+                {
+                    //throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                ERRORText.Text = "ERROR Moving Three Quarters Way";
+            }
+        }
+
+        /// <summary>
+        /// clears ERRORText textbox message after 10 seconds
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ERRORText_TextChanged(object sender, EventArgs e)
+        {
+            // Declare a timer and set its interval to 10 seconds (10000 milliseconds)
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = 10000;
+
+            // Handle the timer's Tick event
+            timer.Tick += (sender, e) =>
+            {
+                // Clear the text in the text box
+                ERRORText.Text = "";
+
+                // Stop the timer
+                timer.Stop();
+            };
+
+            // Stop the timer
+            timer.Stop();
+
+            // Start the timer
+            timer.Start();
         }
     }
 }
