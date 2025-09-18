@@ -44,7 +44,7 @@ namespace Pikachu_1_0
         /// negative directions, then set the motor's origin (i.e., zero position)
         /// to the detected negative limit.
         /// </summary>
-        public void Calibrate()
+        public bool Calibrate()
         {
             serial.WriteLine("TALK GOSUB(1)");
             serial.ReadTo("CALIBRATION_DONE:");
@@ -55,6 +55,8 @@ namespace Pikachu_1_0
             {
                 beltLength = steps / StepsPerMM;
             }
+
+            return true;
         }
 
         /// <summary>
@@ -81,7 +83,11 @@ namespace Pikachu_1_0
         /// Set the target velocity of the SmartMotor.
         /// </summary>
         /// <param name="speed">The desired speed, in millimeters per second (mm/s).</param>
-        public void SetSpeed(float speed) => serial.WriteLine($"VT={speed * StepsPerMM:0}");
+        public bool SetSpeed(float speed)
+        {
+            serial.WriteLine($"VT={speed * StepsPerMM:0}");
+            return true;
+        }
 
         public void MoveToLimit(bool isPositiveLimit) => Request(isPositiveLimit ? "GOSUB(3)" : "GOSUB(4)", "LIMIT_DONE");
 
